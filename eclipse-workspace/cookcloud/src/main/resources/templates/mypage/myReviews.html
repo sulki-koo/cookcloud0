@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<section th:fragment="myReviews" id="my-reviews" class="content-tab">
+			<h3>나의 리뷰</h3>
+			<div class="review-list">
+				<div class="review-item" th:each="review : ${myReviews}">
+					<a th:href="@{'/recipes/recipe/' + ${review.recipe.recipeId}}">
+						<h4 th:utext="${review.reviewContent}">리뷰 내용</h4>
+		                <p th:text="${#temporals.format(review.reviewInsertAt, 'yyyy-MM-dd HH:mm')}">작성일</p>
+					</a>
+				</div>
+			</div>
+		</section>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:fragment="report">
+	    <div class="modal-header">
+	        <h2>신고하기</h2>
+			    </div>
+			    <form id="reportForm" method="post">
+			        <input type="hidden" id="targetId" name="targetId">
+			        <input type="hidden" id="reportType" name="reportType">
+			        <p>신고 사유를 선택하세요:</p>
+			        <select id="reportCodeType" class="form-select" name="reportCodeType" required>
+			            <option value="">선택하세요</option>
+					    <th:block th:each="entry : ${reportCodeTypes}">
+					    <option th:value="${entry.value.parentCode + '' + entry.value.childCode}" 
+					            th:text="${entry.value.codeName}">
+					    </option>
+					</th:block>
+		       		</select>
+			       	<textarea class="form-control" id="reportReason" name="reportReason" rows="2" required></textarea>
+			         <div class="modal-footer">
+	            <button type="submit" class="save-button">신고</button>
+	            <button type="button" class="del-btn" onclick="closeReportPopup()">닫기</button>
+	        </div>
+		    </form>
+		 </div>
+</html>

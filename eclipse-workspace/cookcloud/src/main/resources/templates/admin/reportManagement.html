@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/header :: header}">
+    <title>신고 관리</title>
+</head>
+<body th:if="${#authorization.expr('isAuthenticated()') and loggedMember.roleCode == 21L }">
+    <div class="container">
+        <div class="sidebar">
+		<div th:replace="~{admin/sidebar :: sidebar}"></div>
+		</div>
+        <div class="main">
+            <h2>신고 관리</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>신고자 아이디</th>
+                        <th>신고 사유</th>
+                        <th>신고 일시</th>
+                        <th>처리 여부</th>
+                        <th>신고 처리 일시</th>
+                        <th>신고 메시지 전송 여부</th>
+                        <th>신고 유형</th>
+                        <th>수정</th>
+                        <th>신고 레시피/리뷰</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="report : ${reportList}">
+                    <form th:action="@{/admin/updatereportManagement}" method="post">
+                        <td th:text="${report.memId}">신고자 아이디</td>
+                        <td th:text="${report.reportReason}">사유</td>
+                        <td th:text="${#temporals.format(report.reportSendAt, 'yyyy-MM-dd HH:mm')}">신고 일시</td>
+                        <td th:text="${report.reportIsProc}">처리 여부</td>
+                        <td th:text="${report.reportProcAt != null ? #temporals.format(report.reportProcAt, 'yyyy-MM-dd HH:mm') : '-'}">처리 일시</td>
+                        <td><input type="text" name="reportIsSend" th:value="${report.reportIsSend}"></td>
+                        <td>
+							<select name="reportCode">
+								<option value="">신고 유형 선택</option>
+								<option th:each="role : ${reportCode}"
+										th:value="${'' + role.key.parentCode + role.key.childCode}"
+										th:text="${role.value.codeName}"
+										th:selected="${('' + role.value.parentCode + role.value.childCode) == ('' + report.reportCode)}">
+								</option>
+							</select>
+						</td>
+						<td><button type="submit" class="btn" name="reportId" th:value="${report.reportId}">수정</button></td>
+						<td th:if="${report.recipe != null}"><a th:href="@{/recipes/recipe/{id}(id=${report.recipeId})}" th:text="|레시피 신고(ID: ${report.recipe.recipeId})|">레시피 신고</a></td>
+                        <td th:if="${report.review != null}"><a th:href="@{/recipes/recipe/{id}(id=${report.review.recipe.recipeId})}" th:text="|리뷰 신고(ID: ${report.review.reviewId})|">리뷰 신고</a></td>
+						</form>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

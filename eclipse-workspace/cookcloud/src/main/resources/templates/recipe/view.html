@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="recipe/header :: header"></head>
+<script src="/js/recipeDetail.js" defer></script>
+<script src="/js/review.js" defer></script>
+<body>
+    <nav th:replace="include/nav :: nav"></nav>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-center">
+            <h2 th:text="${recipe.recipeTitle}">레시피 제목</h2>
+        </div>
+        <div class="d-flex justify-content-end align-items-center">
+			<span class="badge"><a th:href="@{'/@' + ${recipe.memNickname}}" th:text="${recipe.memNickname}">닉네임</a></span>&nbsp;&nbsp;
+            <span th:text="${#temporals.format(recipe.recipeInsertAt, 'YY.MM.dd HH:mm')}">작성일</span>&nbsp;&nbsp;
+            조회수: <span th:text="${recipe.recipeViewCount}">0</span>&nbsp;&nbsp;
+            <button type="button" class="reportBtn btn" 
+		        th:data-recipe-id="${recipe.recipeId}"
+	            onclick="showReportPopup(this, 'recipe')"
+		        th:if="${#authorization.expr('isAuthenticated()') and #authentication.principal.username != recipe.memId}">
+            	<i class="bi bi-megaphone-fill text-danger"></i> 신고
+            </button>
+        </div>
+        <th:block th:switch="${recipe.mediaType}">
+			<video class="img" controls th:case="video">
+			<source th:src="@{${recipe.imageUrl}}" th:attr="type=${recipe.imageUrl.endsWith('.mp4') ? 'video/mp4' :
+				                                            recipe.imageUrl.endsWith('.avi') ? 'video/x-msvideo' :
+				                                            recipe.imageUrl.endsWith('.mov') ? 'video/quicktime' : ''}">
+			</video>
+			<img class="img" th:case="image" th:src="@{${recipe.imageUrl}}" alt="Recipe Image">
+			<img class="img" th:case="none" src="/img/recipe/default-image.jpg" alt="Default Image">
+		</th:block>
+        <input type="hidden" id="recipeId" name="recipeId" th:value="${recipe.recipeId}">
+        
+        <div class="d-flex justify-content-center">
+        	<div th:replace="recipe/buttons :: buttons"></div>
+        </div>
+        <p th:utext="${recipe.recipeContent}">레시피 내용</p>
+        <br>
+        <span th:each="tag : ${hashtagNames}" th:text="'#' + ${tag} + ' '"></span>
+		<div><br>
+        
+        <div class="d-flex justify-content-center align-items-center">
+		<div th:if="${#authorization.expr('isAuthenticated()') and #authentication.principal.username == recipe.memId}">
+           <button type="button" th:onclick="|location.href='/recipes/update/' + ${recipe.recipeId}|" class="btn-primary">수정</button>
+           <form th:action="@{'/recipes/delete/' + ${recipe.recipeId}}" method="post" style="display: inline;">
+		   		<button type="submit" class="btn-primary">삭제</button>
+           </form>
+        </div>&nbsp;
+        <button type="button" th:onclick="location.href='/recipes'" class="btn-primary">목록</button>
+		</div><br>
+		
+        <div id="reportOverlay" class="overlay" onclick="closeReportPopup()">
+	        <div id="reportModal" class="modal" onclick="event.stopPropagation()">
+	        	<div th:replace="recipe/report :: report"></div>
+	        </div>
+        </div>
+        
+        <div th:replace="recipe/review :: review"></div>
+    </div>
+    </div>
+</body>
+<script src="/js/reviewList.js"></script>
+<script src="/js/report.js"></script>
+</html>

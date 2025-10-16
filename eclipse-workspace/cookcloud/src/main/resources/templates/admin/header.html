@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header" th:if="${#authorization.expr('isAuthenticated()') and loggedMember.roleCode == 21L }">
+<meta charset="UTF-8">
+<title>관리자</title>
+<link rel="stylesheet" th:href="@{/css/admin.css}">
+<script src="/js/notice.js" defer></script>
+</head>
+</html>

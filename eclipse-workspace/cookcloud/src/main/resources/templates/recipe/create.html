@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="recipe/header :: header"></head>
+<body>
+	<nav th:replace="include/nav :: nav"></nav>
+    <div class="container mt-4">
+        <h2>레시피 작성</h2>
+        <form action="/recipes/create" method="post" enctype="multipart/form-data">
+        	<input type="hidden" id="memId" name="memId" th:value="${#authentication.principal.username}">
+            <div class="mb-3">
+                <label for="recipeTitle" class="form-label">제목</label>
+                <input type="text" class="form-control" id="recipeTitle" name="recipeTitle" required>
+            </div>
+            <div class="mb-3">
+                <label for="recipeContent" class="form-label">내용</label>
+                <textarea class="form-control" id="recipeContent" name="recipeContent" rows="4" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="recipeTypeList" class="form-label">레시피 유형</label>
+                <select id="recipeType" class="form-select" name="recipeCode" required>
+                    <option value="">All Types</option>
+                    <th:block th:each="entry : ${recipeTypes}">
+					    <option th:value="${entry.value.parentCode + '' + entry.value.childCode}" 
+					            th:text="${entry.value.codeName}">
+					    </option>
+					</th:block>
+                </select>
+            </div>
+            
+            <div class="mb-3">
+			    <label for="hashtags" class="form-label">해시태그</label>
+			    <input type="text" class="form-control" id="hashtagInput" placeholder="해시태그 입력 후 엔터">
+			    <div id="hashtagContainer" class="mt-2">
+			        <th:block th:if="${hashtagNames != null and not #lists.isEmpty(hashtagNames)}">
+			            <span th:each="tag : ${hashtagNames}" th:data-tag="${tag}" class="badge bg-primary me-1 hashtag-btn">
+			                <span th:text="'#' + ${tag}"></span> ×
+			            </span>
+			        </th:block>
+			    </div>
+			    <input type="hidden" id="hashtags" name="hashtags">
+			</div>
+            
+            <div class="mb-3">
+	             <label for="attachment" class="form-label">이미지 첨부</label>
+	             <input type="file" id="fileInput" name="attachment" accept=".jpg,.jpeg,.png,.gif,.mp4,.avi,.mov">
+			    <p id="fileError" style="color: red; display: none;">지원하지 않는 파일 형식입니다!</p>
+	         </div>
+            <button type="submit" class="btn btn-primary">등록</button>
+            <button type="button" th:onclick="location.href='/recipes'" class="btn btn-primary">취소</button>
+        </form>
+    </div>
+</body>
+<script src="/js/recipeTag.js"></script>
+<script src="/js/attachment.js"></script>
+</html>

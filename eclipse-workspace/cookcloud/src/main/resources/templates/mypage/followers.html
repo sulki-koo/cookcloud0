@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<section th:fragment="followers" id="followers" class="content-tab">
+	<h3>Follower</h3>
+	<div class="user-list">
+		<div class="user-card" th:each="user : ${followers}">
+			<a th:href="@{'/@' + ${user.memNickname}}">
+				<p th:if="${#authorization.expr('isAuthenticated()') and #authentication.principal.username != user.memId}">
+					<a th:href="@{'/@' + ${user.memNickname}}">
+						<p th:text="${user.memNickname}">닉네임</p>
+					</a>
+				</p>
+			</a>
+		</div>
+	</div>
+</section>
+</html>

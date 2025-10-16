@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cook Cloud</title>
+    <link rel="stylesheet" th:href="@{/css/nav.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <script src="/js/logout.js" defer></script>
+    <script src="/js/home.js" defer></script>
+</head>
+    <nav th:replace="include/nav :: nav"></nav>
+    <main>
+    <!-- 인기 레시피 슬라이더 -->
+    <section class="slider__wrap">
+      <div class="slider__img">
+        <div class="slider__inner" id="sliderInner">
+          <th:block th:each="likeRank : ${likeRanks}">
+            <div class="slider">
+              <a th:href="@{/recipes/recipe/{id}(id=${likeRank.recipeId})}">
+                <th:block th:switch="${likeRank.mediaType}">
+                  <video th:case="'video'" controls>
+                    <source th:src="@{${likeRank.imageUrl}}"
+                            th:attr="type=${likeRank.imageUrl.endsWith('.mp4') ? 'video/mp4' :
+                                              likeRank.imageUrl.endsWith('.avi') ? 'video/x-msvideo' :
+                                              likeRank.imageUrl.endsWith('.mov') ? 'video/quicktime' : ''}" />
+                  </video>
+                  <img th:case="'image'" th:src="@{${likeRank.imageUrl}}" alt="Recipe Image" />
+                  <img th:case="'none'" src="/img/recipe/default-image.jpg" alt="Default Image" />
+                </th:block>
+              </a>
+            </div>
+          </th:block>
+        </div>
+
+        <!-- 슬라이드 버튼 -->
+        <button class="slider__btn left" id="prevBtn">&#9664;</button>
+        <button class="slider__btn right" id="nextBtn">&#9654;</button>
+      </div>
+    </section>
+
+    <!-- 공지사항 -->
+    <section class="notice">
+      <h2 class="text-xl font-semibold mb-4">📢</h2>
+      <ul id="noticeList" class="bg-white p-4 rounded-lg shadow-md">
+        <li th:if="${#lists.isEmpty(notices)}">현재 공지사항이 없습니다.</li>
+        <li th:each="notice, iterStat : ${notices}" class="notice-item">
+          <strong class="cursor-pointer" onclick="toggleContent(this)">
+            <span th:text="${notice.noticeTitle}"></span>
+          </strong>
+          <div class="notice-content" th:utext="${notice.noticeContent}"></div>
+        </li>
+      </ul>
+      <div class="pagination mt-4 flex items-center justify-center gap-2" id="paginationWrapper"></div>
+    </section>
+
+    <!-- 카테고리 -->
+    <section class="category-grid">
+      <th:block th:each="entry : ${recipeCodes}">
+        <a th:href="@{/recipes(recipeType=${entry.value.parentCode + '' + entry.value.childCode})}"
+           th:text="${entry.value.codeName}">카테고리</a>
+      </th:block>
+    </section>
+  </main>
+
+  <footer style="background-color:white; text-align:center; padding:16px;">
+    <p>문의: cookcloud@example.com</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,132 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Arial', sans-serif;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background-color: #fbfbf7;
+}
+
+.container {
+	background-color: #fff;
+	width: 100%;
+	max-width: 800px;
+	padding: 20px;
+	border: 2px solid #e6f0ff;
+	border-radius: 8px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	overflow: hidden;
+	box-shadow: 0 0 25px rgb(111 192 251/ 10%), 0 0 40px rgb(154 169 249/ 20%);
+}
+
+h2 {
+	color: #333;
+	text-align: center;
+	margin-top: 20px;
+	font-size: 22px;
+}
+
+.recipe-content {
+	font-size: 16px;
+	color: #555;
+	line-height: 1.8;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.result-title {
+	font-size: 24px;
+	font-weight: bold;
+	color: #333;
+	margin-bottom: 10px;
+	line-height: 1.8;
+}
+
+.recipe-description {
+	margin-top: 10px;
+	font-size: 18px;
+	color: #666;
+	line-height: 1.8;
+	margin-bottom: 10px;
+}
+
+.ai-message {
+	font-size: 14px;
+	color: #888;
+	margin-top: 10px;
+	text-align: center;
+	line-height: 1.8;
+}
+
+.button {
+	display: block;
+	margin: 30px auto;
+	padding: 10px 20px;
+	background-color: #0029ff;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: #0052ff;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+	.container {
+		width: 90%;
+		height: 700px;
+		padding: 10px;
+	}
+	h2 {
+		font-size: 18px;
+		line-height: 1.8;
+	}
+	.recipe-content, .recipe-description {
+		font-size: 14px;
+		line-height: 1.8;
+	}
+	.button {
+		font-size: 14px;
+		padding: 8px 16px;
+	}
+}
+
+@media (max-width: 480px) {
+	.container {
+		width: 90%;
+		height: 600px;
+		padding: 10px;
+	}
+	h2 {
+		font-size: 16px;
+		line-height: 1.8;
+	}
+	.recipe-content, .recipe-description {
+		font-size: 12px;
+		line-height: 1.8;
+	}
+	.button {
+		font-size: 12px;
+		padding: 6px 12px;
+	}
+}

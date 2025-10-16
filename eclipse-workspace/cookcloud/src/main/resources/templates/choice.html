@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>취향 선택</title>
+    <link rel="stylesheet" th:href="@{/css/choice.css}">
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="/js/choice.js"></script>
+</head>
+<body>
+        <div class="container">
+        <div class="logo">
+            <a th:href="@{/}"><img src="/img/logo.png"></a>
+        </div>
+            <p>오늘 땡기는 것을 골라주세요! <br> (총 6개)</p>
+            <p class="category"></p>
+            <img id="image-box">
+            <div class="options">
+                <button type="button" class="mark" id="mark-O">O</button>
+                <button type="button" class="mark" id="mark-X">X</button>
+            </div>
+            <button type="button" id="prev-button">이전</button>
+            <button type="button" id="confirm-button" onclick="submitChoices()">결과 확인</button>
+        </div>
+        <!-- 선택한 데이터를 저장하는 숨은 입력 필드 -->
+        <input type="hidden" id="choiceData" name="choiceData">
+</body>
+</html>

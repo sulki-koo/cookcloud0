@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:fragment="review">
+		<!-- 리뷰 작성 (로그인한 사용자만 가능) -->
+        <div th:if="${#authorization.expr('isAuthenticated()')}">
+            <h6>리뷰 작성</h6>
+            <form id="reviewForm" action="/reviews/createReview" method="post">
+                <textarea id="reviewContent" name="reviewContent" class="form-control" required></textarea>
+                <button type="submit" class="btn btn-primary mt-2">작성</button>
+            </form>
+        </div>
+	<div id="reviews"></div>
+	<h6 class="mt-4">리뷰</h6>
+	<div id="loading" class="text-center mt-2" style="display: none;">로딩 중...</div>
+			<div class="review-item" th:each="review : ${reviews}" th:data-review-id="${review.reviewId}">
+		        <span class="review-date" th:text="${#temporals.format(review.reviewInsertAt, 'yyyy-MM-dd HH:mm')}">작성일</span>
+		        <span class="nickname" th:text="${review.memNickname}">닉네임</span><br>
+				<h6 class="review-content" th:utext="${review.reviewContent}">리뷰 내용</h6>
+				<textarea class="edit-review-content form-control" style="display: none;"></textarea>
+    			<button class="save-review-btn btn btn-success mt-2" style="display: none;">저장</button>
+				
+				<div class="buttons">
+		        <button class="likeBtn btn" 
+	            	th:classappend="${reviewLikes[review.reviewId]} ? 'bi-heart-fill text-danger' : 'bi-heart'" 
+	            	th:data-review-id="${review.reviewId}"
+	            	onclick="toggleLike(this, 'review')">&nbsp;<span th:text="${reviewLikeCounts[review.reviewId]}">0</span>
+	            </button>
+		       	<div th:if="${#authorization.expr('isAuthenticated()') and #authentication.principal.username == review.memId}">
+		        <button type="button" class="edit-review-btn btn btn-primary">수정</button>
+		        <button type="button" class="btn btn-primary" th:onclick="|deleteReview(${review.reviewId})|">삭제</button>
+				</div>
+				<button type="button" class="reportBtn btn" 
+			        th:data-review-id="${review.reviewId}"
+		            onclick="showReportPopup(this, 'review')"
+		            th:if="${#authorization.expr('isAuthenticated()') and #authentication.principal.username != review.memId}">
+	            	<i class="bi bi-megaphone-fill text-danger"></i> 신고
+	            </button>
+	            </div>
+	   </div>
+</div>
+</html>

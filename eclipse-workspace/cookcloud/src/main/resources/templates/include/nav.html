@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<nav th:fragment="nav">
+	<div class="nav-top">
+		<div class="nav-logo">
+			<a href="/"><img src="/img/logo.png" alt="로고" class="top-logo" /></a>
+		</div>
+		<div class="nav-menu">
+			<a href="/recipes">✨ 레시피</a>
+			<a href="/choice">🎲 취향 선택 추천</a>
+		</div>
+
+		<div class="auth-user">
+			<a th:href="@{'/@' + ${loggedMember.memNickname}}"
+				th:if="${#authorization.expr('isAuthenticated()')}">마이페이지</a> <a
+				href="#" id="logoutLink"
+				th:if="${#authorization.expr('isAuthenticated()')}">로그아웃</a>
+			<a href="/login" th:if="${#authorization.expr('!isAuthenticated()')}">로그인</a>
+			<a href="/signup"
+				th:if="${#authorization.expr('!isAuthenticated()')}">회원가입</a>
+		</div>
+	</div>
+</nav>
+</html>

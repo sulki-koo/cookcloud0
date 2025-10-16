@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<div th:fragment="profile" class="profile-header">
+		<div class="profile-stats">
+			<div>
+				<span th:text="${#lists.size(myRecipes)}"></span>
+				<p><button class="tab-button" data-target="my-recipes">레시피</button></p>
+			</div>
+			<div>
+				<span th:text="${#lists.size(followers)}"></span>
+				<p><button class="tab-button" data-target="followers">팔로워</button></p>
+			</div>
+			<div>
+				<span th:text="${#lists.size(followings)}"></span>
+				<p><button class="tab-button" data-target="followings">팔로잉</button></p>
+			</div>
+		</div>
+	</div>
+	
+</html>

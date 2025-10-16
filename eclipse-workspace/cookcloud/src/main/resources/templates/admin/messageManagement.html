@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/header :: header}">
+<title>수동 메세지 발송</title>
+</head>
+<body th:if="${#authorization.expr('isAuthenticated()') and loggedMember.roleCode == 21L }">
+	<div class="container">
+		<div class="sidebar">
+			<div th:replace="admin/sidebar :: sidebar"></div>
+		</div>
+		<div class="main">
+			<h2>메세지 발송</h2>
+			<!-- 메시지 전송 폼 -->
+			<form action="/admin/messageManagement" method="post">
+				<table>
+					<thead>
+						<tr>
+							<th>회원아이디</th>
+							<th>제목</th>
+							<th>내용</th>
+							<th>메시지 유형 코드</th>
+							<th>보내기</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="text" name="memId" placeholder="회원 아이디"
+								required></td>
+							<td><input type="text" name="messageTitle"
+								placeholder="메시지 제목" required></td>
+							<td><textarea name="messageContent" placeholder="메시지 내용"
+									required></textarea></td>
+							<td>
+							<select id="messageCode" name="messageCode" class="form-select">
+			                    <option value="">-- 선택하세요 --</option>
+			                    <th:block th:each="entry : ${messageCodes}" name="messageCode">
+			                        <option th:value="${entry.value.parentCode + '' + entry.value.childCode}" th:text="${entry.value.codeName}"></option>
+			                    </th:block>
+			                </select>
+							</td>
+							<td>
+								<!-- 메시지 전송 버튼 -->
+								<button type="submit" class="btn">메시지 전송</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+			<!-- 성공 메시지 -->
+			<div th:if="${successMessage}" class="alert alert-success">
+				<span th:text="${successMessage}"></span>
+			</div>
+
+			<!-- 실패 메시지 -->
+			<div th:if="${errorMessage}" class="alert alert-danger">
+				<span th:text="${errorMessage}"></span>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<section th:fragment="followings" id="followings" class="content-tab">
+	<h3>Folloing</h3>
+	<div class="user-list">
+		<div class="user-card" th:each="user : ${followings}">
+			<a th:href="@{'/@' + ${user.memNickname}}">
+				<p>
+					<a th:href="@{'/@' + ${user.memNickname}}">
+						<p th:text="${user.memNickname}">닉네임</p>
+					</a>
+				</p>
+			</a>
+		</div>
+	</div>
+</section>
+</html>

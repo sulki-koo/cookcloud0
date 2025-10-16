@@ -1,0 +1,173 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Arial', sans-serif;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background-color: #fbfbf7; 
+}
+
+.container {
+	background-color: #fff;
+	width: 100%;
+	max-width: 600px;
+	padding: 20px;
+	border: 2px solid #85b28536; 
+	border-radius: 8px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	overflow: hidden;
+	box-shadow: 0 0 25px rgb(133 178 133 / 18%), 0 0 40px rgb(133 178 133 / 13%);
+}
+
+/* 그라데이션 색상 변경 */
+.container::after {
+	content: '';
+	position: absolute;
+	top: -15px;
+	left: -15px;
+	width: calc(100% + 30px);
+	height: calc(100% + 30px);
+	z-index: -1;
+	border-radius: 12px;
+	box-shadow: 0 0 25px rgb(133 178 133 / 18%), 0 0 40px rgb(133 178 133 / 13%);
+}
+
+form {
+	width: 60%;
+}
+
+/* 로고 이미지 스타일 */
+.logo img {
+	max-width: 130px;
+	margin-bottom: 15px;
+	object-fit: contain;
+}
+
+/* 제목 스타일 */
+h2 {
+	font-size: 20px;
+	color: #333;
+	margin-bottom: 10px;
+}
+
+/* 입력 필드 스타일 */
+.input-field {
+	width: 100%;
+	max-width: 600px;
+	padding: 8px 10px;
+	margin: 8px 0;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+	color: #333;
+}
+
+.input-field:focus {
+	outline: none;
+	border-color: #bebebe; 
+}
+
+/* 버튼 스타일 */
+.submit-btn, .login-btn{
+	width: 100%;
+	max-width: 500px;
+	padding: 8px 10px;
+	margin: 8px 0;
+	background-color: #85B285; 
+	border: none;
+	border-radius: 4px;
+	font-size: 14px;
+	color: white;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover, .login-btn:hover {
+	background-color: #85B285; 
+}
+
+.submit-btn:active, .login-btn:active {
+	background-color: #85B285;
+}
+
+/* 링크 스타일 */
+.links {
+	margin-top: 15px;
+}
+
+.links a {
+	color: #000000;
+	text-decoration: none;
+	margin: 5px;
+	font-size: 14px;
+}
+
+.links a:hover {
+	text-decoration: underline;
+}
+
+.links input {
+	width: 100%;
+	padding: 10px;
+	margin: 8px 0;
+	background-color: #85B285;
+	border: none;
+	border-radius: 4px;
+	font-size: 14px;
+	color: white;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* 반응형 디자인 */
+@media screen and (max-width: 768px) {
+	.container {
+		width: 90%;
+		padding: 15px;
+	}
+	h2 {
+		font-size: 18px;
+	}
+	.input-field {
+		font-size: 14px;
+	}
+	.submit-btn, .login-btn {
+		font-size: 14px;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.container {
+		width: 90%;
+		padding: 10px;
+	}
+	h2 {
+		font-size: 16px;
+	}
+	.input-field {
+		font-size: 14px;
+	}
+	.submit-btn, .login-btn {
+		font-size: 12px;
+	}
+	.logo img {
+		max-width: 120px;
+	}
+}

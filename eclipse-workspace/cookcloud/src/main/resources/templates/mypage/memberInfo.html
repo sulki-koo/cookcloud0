@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<section th:fragment="memberInfo" id="member-info" class="content-tab">
+			<h3>회원 정보</h3>
+			<input type="hidden" id="memId" th:value="${#authentication.principal.username}">
+			<div class="member-infolist">
+				<form>
+					<p>이름</p>
+					<input type="text" id="name" th:value="${member.memName}">
+					<span id="nameError" class="error-message"></span><br>
+			        <p>닉네임</p>
+			        <input type="text" id="nickname" th:value="${member.memNickname}">
+			        <input type="hidden" id="originalNickname" th:value="${member.memNickname}">
+			        <span id="nicknameError" class="error-message"></span><br>
+			        <p>이메일</p>
+			        <input type="text" id="email" th:value="${member.memEmail}">
+			        <span id="emailError" class="error-message"></span><br>
+			        <p>전화번호</p>
+			        <input type="text" id="phone" th:value="${member.memPhone}">
+			        <span id="phoneError" class="error-message"></span><br>
+			        <p>가입일</p>
+			        <span th:text="${#temporals.format(member.memInsertAt, 'yyyy-MM-dd')}">가입일</span>
+				</form><br>
+				<input type="button" id="saveMember" class="save-button" th:if="${#authorization.expr('isAuthenticated()')}" th:value="수정">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" id="deleteMember" class="del-btn" th:if="${#authorization.expr('isAuthenticated()')}" th:value="탈퇴">
+		    </div>
+		    <div id="deleteModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+     			background: white; padding: 20px; border: 1px solid black;">
+			    <p>⚠ 정말로 탈퇴하시겠습니까? 되돌릴 수 없습니다.</p>
+			    <label>
+			        <input type="checkbox" id="confirmDelete"> 위 내용을 이해하고 동의합니다.
+			    </label>
+			    <br><br>
+			    <button id="confirmDeleteBtn">탈퇴하기</button>
+			    <button id="cancelDeleteBtn">취소</button>
+			</div>
+		</section>
+</html>

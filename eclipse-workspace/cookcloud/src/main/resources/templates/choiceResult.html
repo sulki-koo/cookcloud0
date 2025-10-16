@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>결과 페이지</title>
+    <link rel="stylesheet" th:href="@{/css/choiceResult.css}">
+</head>
+<body>
+    <div class="container">
+        <h2>추천 결과!</h2>
+        <!-- AI 결과인 경우 -->
+        <div class="result" th:if="${isAIResult}">
+            <h2 class="result-title">AI가 추천하는 레시피</h2>
+            <p class="recipe-content" th:utext="${recipe}">AI 레시피 내용</p>
+            <p class="ai-message">이 레시피는 AI에 의해 생성되었습니다.</p>
+        </div>
+
+        <!-- DB 결과인 경우 -->
+        <div class="result" th:if="${!isAIResult}">
+            <h2 class="result-title">추천 레시피</h2>
+            <p class="recipe-description" th:text="${recipe.recipeTitle}">레시피 제목</p><br>
+            <p class="recipe-content" th:utext="${recipe.recipeContent}">레시피 설명</p>
+        </div>
+
+        <button class="button" onclick="window.location.href='/'">홈으로 돌아가기</button>
+    </div>
+</body>
+</html>
+

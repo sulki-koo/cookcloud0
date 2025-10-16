@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="recipe/header :: header"></head>
+<body>
+	<nav th:replace="include/nav :: nav"></nav>
+    <div class="container mt-4">
+        <h2>레시피 수정</h2>
+        <form th:action="@{/recipes/update/{recipeId}(recipeId=${recipe.recipeId})}" method="post"
+			enctype="multipart/form-data">
+        	<input type="hidden" id="memId" th:value="${#authentication.principal.username}">
+        	<input type="hidden" name="recipeId" th:value="${recipe.recipeId}">
+            <div class="mb-3">
+                <label for="recipeTitle" class="form-label">제목</label>
+                <input type="text" class="form-control" id="recipeTitle" name="recipeTitle" th:value="${recipe.recipeTitle}" required>
+            </div>
+            <div class="mb-3">
+                <label for="recipeContent" class="form-label">내용</label>
+                <textarea class="form-control" id="recipeContent" name="recipeContent" rows="4" required th:utext="${recipe.recipeContent}"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="recipeType" class="form-label">레시피 유형</label>
+                <select id="recipeType" class="form-select" name="recipeCode" required>
+                    <option value="">All Types</option>
+                    <th:block th:each="entry : ${recipeTypes}">
+			            <option th:value="${entry.key.parentCode + '' + entry.key.childCode}"
+				                th:text="${entry.value.codeName}"
+				                th:selected="${('' + entry.key.parentCode + entry.key.childCode) == ('' + recipe.recipeCode)}">
+                        </option>
+                    </th:block>
+                </select>
+            </div>
+            <div class="mb-3">
+			    <label for="hashtags" class="form-label">해시태그</label>
+			    <div id="hashtagContainer" class="mt-2">
+			        <span th:each="tag : ${hashtagNames}" 
+			              th:data-tag="${tag}" 
+			              class="badge bg-primary me-1 hashtag-btn">
+			            <span th:text="'#' + ${tag}"></span> ×
+			        </span>
+			    </div>
+			    <input type="text" class="form-control" id="hashtagInput" placeholder="해시태그 입력 후 엔터">
+			    <input type="hidden" id="hashtags" name="hashtags">
+			</div>
+            
+			<div class="mb-3">
+			   <th:block th:switch="${recipe.mediaType}">
+					<video class="img" controls th:case="video">
+					<source th:src="@{${recipe.imageUrl}}" th:attr="type=${recipe.imageUrl.endsWith('.mp4') ? 'video/mp4' :
+						                                            recipe.imageUrl.endsWith('.avi') ? 'video/x-msvideo' :
+						                                            recipe.imageUrl.endsWith('.mov') ? 'video/quicktime' : ''}">
+					</video>
+					<img class="img" th:case="image" th:src="@{${recipe.imageUrl}}" alt="Recipe Image">
+					<img class="img" th:case="none" src="/img/recipe/default-image.jpg" alt="Default Image">
+				</th:block>
+			    <label for="image" class="form-label">이미지</label>
+			    <div>
+					<p>현재 파일: <span th:if="${attachment != null}" th:text="${attachment.attachUploadName}"></span></p>
+					<p th:if="${attachment == null}">없음</p>
+			    </div>
+			    <input type="file" id="fileInput" name="attachment" accept=".jpg,.jpeg,.png,.gif,.mp4,.avi,.mov">
+			    <p id="fileError" style="color: red; display: none;">지원하지 않는 파일 형식입니다!</p>
+			</div>
+			
+            <button type="submit" class="btn btn-primary">수정</button>
+            <button type="button" th:onclick="|location.href='/recipes/recipe/'+ ${recipe.recipeId}|" class="btn btn-primary">취소</button>
+        </form>
+    </div>
+</body>
+<script src="/js/recipeTag.js"></script>
+<script src="/js/attachment.js"></script>
+</html>

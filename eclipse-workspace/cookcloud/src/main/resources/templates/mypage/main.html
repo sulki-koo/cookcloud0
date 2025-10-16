@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{mypage/header :: header}"></head>
+	<nav th:replace="~{include/nav :: nav}"></nav>
+<body>
+	<h2 th:text="${nickname}"></h2>
+	<div th:replace="~{mypage/profile :: profile}"></div>
+	<div th:if="${isOwnPage}">
+	<div th:replace="~{mypage/tabs :: tabs}"></div>
+	</div>
+	<main class="main-container">
+	<div class="content-section">
+		<section th:replace="~{mypage/myrecipes :: myrecipes}"></section>
+		<section th:replace="~{mypage/followers :: followers}"></section>
+		<section th:replace="~{mypage/followings :: followings}"></section>
+		<div th:if="${isOwnPage}">
+		<section th:replace="~{mypage/likedRecipes :: likedRecipes}"></section>
+		<section th:replace="~{mypage/myReviews :: myReviews}"></section>
+		<section th:replace="~{mypage/messages :: messages}"></section>
+		<section th:replace="~{mypage/memberInfo :: memberInfo}"></section>
+		</div>
+	</div>
+	</main>
+</body>
+</html>

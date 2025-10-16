@@ -1,0 +1,129 @@
+/* 브라우저 기본 여백 제거 */
+html, body {
+	margin: 0;
+	padding: 0;
+	background-color: white; /* 이 줄 추가 */
+	box-sizing: border-box;
+}
+
+/* 전체 nav */
+.navbar {
+	background-color: white;
+	color: black;
+	width: 100%;
+	font-family: 'Noto Sans KR', sans-serif;
+	box-sizing: border-box;
+	border-bottom: 1px solid #eaeaea;
+}
+
+/* 상단 nav 영역: 로고 + 메뉴 + 인증 */
+.nav-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px 40px;
+	position: relative; /* 메뉴 가운데 정렬을 위해 필요 */
+	flex-wrap: wrap;
+}
+
+/* 좌측 로고 */
+.nav-logo {
+	height: 60px;
+	width: auto;
+}
+
+.nav-logo img {
+	height: 50px;
+	width: auto;
+}
+
+/* 가운데 메뉴 */
+.nav-menu {
+	display: flex;
+	gap: 40px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+/* 메뉴 내 링크 스타일 */
+.nav-menu a {
+	font-size: 16px;
+	color: black;
+	text-decoration: none;
+	font-weight: bold;
+	padding: 8px 14px;
+	border-radius: 16px;
+	background-color: #f9f9f9;
+	transition: all 0.2s ease-in-out;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.nav-menu a:hover {
+	background-color: #e8e8e8;
+	transform: translateY(-2px);
+	text-decoration: none;
+}
+
+/* 인증 메뉴 영역 (우측) */
+.auth-user, .guest-user {
+	display: flex;
+	gap: 16px;
+	align-items: center;
+}
+
+/* 인증 메뉴 내 링크 스타일 */
+.auth-user a, .guest-user a {
+	font-size: 14px;
+	color: black;
+	text-decoration: none;
+	font-weight: 600;
+	padding: 8px 16px;
+	border-radius: 20px;
+	border: 1px solid #ccc;
+	background-color: white;
+	transition: all 0.2s ease-in-out;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.auth-user a:hover, .guest-user a:hover {
+	background-color: #f0f0f0;
+	transform: translateY(-1px);
+}
+
+@media screen and (max-width: 768px) {
+	.nav-top {
+		padding: 12px 24px;
+		align-items: flex-start;
+	}
+	.nav-menu {
+		position: static;
+		transform: none;
+		margin-top: 12px;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 20px;
+	}
+	.auth-user {
+		margin-top: 12px;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.nav-top {
+		flex-direction: column;
+	}
+	.nav-logo img {
+		height: 50px;
+	}
+	.nav-menu a {
+		font-size: 14px;
+		padding: 6px 12px;
+	}
+	.auth-user a {
+		font-size: 13px;
+		padding: 6px 12px;
+	}
+}

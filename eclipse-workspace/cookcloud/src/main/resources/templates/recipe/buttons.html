@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:fragment="buttons">
+            <button class="likeBtn btn" 
+            	th:classappend="${liked} ? 'bi-heart-fill text-danger' : 'bi-heart'" 
+            	th:data-recipe-id="${recipe.recipeId}"
+            	onclick="toggleLike(this, 'recipe')">&nbsp;<span th:text="${recipe.likeCount}">0</span>
+            </button>
+            <button id="followBtn" class="btn" 
+            	th:classappend="${following} ? 'bi-bell-fill text-warning' : 'bi bi-bell'" 
+            	th:data-user-id="${recipe.memId}"
+            	onclick="toggleFollow(this)"
+            	th:if="${#authorization.expr('isAuthenticated()') and #authentication.principal.username != recipe.memId}"> 팔로우
+            </button>
+        </div>
+</html>

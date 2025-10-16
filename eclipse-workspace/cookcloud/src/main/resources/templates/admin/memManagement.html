@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/header :: header}">
+<title>신고 관리</title>
+</head>
+<body th:if="${#authorization.expr('isAuthenticated()') and loggedMember.roleCode == 21L }">
+	<div class="container">
+		<div class="sidebar">
+		<div th:replace="admin/sidebar :: sidebar"></div>
+		</div>
+		<div class="main">
+			<h2>회원 리스트</h2>
+			<form action="/admin/updateMemManagement" method="post">
+				<table>
+					<thead>
+						<tr>
+							<th>아이디</th>
+							<th>이름</th>
+							<th>닉네임</th>
+							<th>이메일</th>
+							<th>전화번호</th>
+							<th>상태코드</th>
+							<th>등급코드</th>
+							<th>수정</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="member : ${memberList}">
+							<form action="/admin/updateMemManagement" method="post">
+								<td th:text="${member.memId}">아이디</td>
+								<td th:text="${member.memName}">이름</td>
+								<td th:text="${member.memNickname}">닉네임</td>
+								<td th:text="${member.memEmail}">이메일</td>
+								<td th:text="${member.memPhone}">전화번호</td>
+								<td>
+					                <select name="memStatusCode">
+					                  <option value="">계정 상태 선택</option>
+					                  <option th:each="status : ${statusTypes}"
+					                          th:value="${'' + status.value.parentCode + status.value.childCode}"
+					                          th:text="${status.value.codeName}"
+					                          th:selected="${('' + status.value.parentCode + status.value.childCode) == ('' + member.memStatusCode)}">
+					                  </option>
+					                </select>
+              					</td>
+              					<td>
+					                <select name="roleCode">
+					                  <option value="">회원 등급 선택</option>
+					                  <option th:each="role : ${roleTypes}"
+					                          th:value="${'' + role.value.parentCode + role.value.childCode}"
+					                          th:text="${role.value.codeName}"
+					                          th:selected="${('' + role.value.parentCode + role.value.childCode) == ('' + member.roleCode)}">
+					                  </option>
+					                </select>
+					              </td>
+								<td>
+									<button type="submit" class="btn" name="memId"
+										th:value="${member.memId}">수정</button>
+								</td>
+							</form>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

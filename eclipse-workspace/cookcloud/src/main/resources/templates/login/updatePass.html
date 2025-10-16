@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/updatepass.js" defer></script>
+<link rel="stylesheet" th:href="@{/css/member.css}">
+<title>비밀번호 변경</title>
+</head>
+<body>
+	<div class="container">
+		<div class="logo">
+			<a th:href="@{/}"><img src="/img/logo.png"></a>
+			<h2>비밀번호 변경</h2>
+		</div>
+		<form id="updatePasswordForm">
+		<input type="hidden" id="memId" name="memId" th:value="${memId}">
+		
+			<input type="hidden" id="memId" name="memId" th:value="${memId}">
+			비밀번호<input type="password" id="password" class="input-field" required><br>
+			<span id="passwordError" class="error-message"></span><br>
+			비밀번호 확인<input type="password" id="checkPassword" class="input-field"><br>
+			<span id="checkPasswordError" class="error-message"></span><br>
+			<input type="button" id="updatePasswordBtn" class="submit-btn" value="비밀번호 변경">
+		</form>
+	</div>
+</body>
+</html>

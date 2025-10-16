@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/header :: header}">
+  <title>공지 관리</title>
+</head>
+<body th:if="${#authorization.expr('isAuthenticated()') and loggedMember.roleCode == 21L }">
+  <div class="container">
+    <div class="sidebar">
+		<div th:replace="~{admin/sidebar :: sidebar}"></div>
+		</div>
+    <div class="main">
+      <h2>공지 관리</h2>
+      <!-- 공지 추가 폼 -->
+      <form action="/admin/noticeManagement" method="post">
+        <label for="noticeTitle">공지 제목:</label>
+        <input type="text" id="noticeTitle" name="noticeTitle" required>
+        <label for="noticeContent">공지 내용:</label>
+        <textarea id="noticeContent" name="noticeContent" required></textarea>
+        <label for="noticeAnswerName">공지 작성자:</label>
+        <input type="text" id="noticeAnswerName" name="noticeAnswerName" required>
+        <button type="submit">보내기</button>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <th>공지 제목</th>
+            <th>공지 내용</th>
+            <th>공지 작성자</th>
+            <th>등록 일시</th>
+            <th>수정 일시</th>
+            <th>수정/삭제</th>
+          </tr>
+        </thead>
+        <tbody>
+		  <tr th:each="notice : ${noticeList}" th:id="'row-' + ${notice.noticeId}">
+            <td>
+              <span th:text="${notice.noticeTitle}" th:id="'title-' + ${notice.noticeId}"></span>
+              <input type="text" th:id="'edit-title-' + ${notice.noticeId}" th:value="${notice.noticeTitle}" style="display:none;">
+            </td>
+            <td>
+              <span th:text="${notice.noticeContent}" th:id="'content-' + ${notice.noticeId}"></span>
+              <textarea th:id="'edit-content-' + ${notice.noticeId}" style="display:none;">[[${notice.noticeContent}]]</textarea>
+            </td>
+		      <td th:text="${notice.noticeAnswerName}">등록 일시</td>
+		      <td th:text="${#temporals.format(notice.noticeInsertAt, 'yyyy-MM-dd HH:mm')}">등록 일시</td>
+		      <td th:text="${#temporals.format(notice.noticeUpdateAt, 'yyyy-MM-dd HH:mm')}">수정 일시</td>
+		      <td>
+              <span th:if="${notice.noticeIsDeleted == 'Y'}" style="color:red; font-weight:bold;">삭제됨</span>
+              <span th:if="${notice.noticeIsDeleted != 'Y'}">
+                <button th:id="'edit-btn-' + ${notice.noticeId}" th:onclick="'editNotice(' + ${notice.noticeId} + ')'" >수정</button>
+                <button th:id="'save-btn-' + ${notice.noticeId}" th:onclick="'saveNotice(' + ${notice.noticeId} + ')'" style="display:none;">저장</button>
+                <button th:id="'delete-btn-' + ${notice.noticeId}" th:onclick="'deleteNotice(' + ${notice.noticeId} + ')'" >삭제</button>
+              </span>
+            </td>
+		  </tr>
+		</tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,284 @@
+body {
+	font-family: 'Arial', sans-serif;
+	background-color: #fafafa;
+	color: #262626;
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	max-width: 900px;
+	margin: 20px auto;
+	padding: 15px;
+	background: white;
+	border-radius: 10px;
+	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar, .form-control, .btn {
+	margin: 5px 0;
+}
+
+/* 검색 요소 크기 통일 */
+.search-control {
+	height: 38px;
+	padding: 6px 12px;
+	font-size: 14px;
+	border-radius: 5px;
+}
+
+.btn-primary {
+	background: #85B285;
+	border: none;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.btn-primary:hover {
+	background: #497649;
+}
+
+.recipe-card {
+	text-decoration: none;
+	background: white;
+	border-radius: 10px;
+	padding: 10px;
+	text-align: center;
+	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+	transition: transform 0.2s;
+	margin-bottom: 15px;
+}
+
+.recipe-card:hover {
+	transform: scale(1.05);
+}
+
+#recipeList a {
+  text-decoration: none;
+  color: inherit; 
+}
+
+.img {
+	height: 400px;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	width: 100%;
+	transition: transform 0.5s ease;
+}
+
+h2 {
+	text-align: center;
+}
+
+.badge a {
+	color: black;
+	text-decoration: none;
+	margin: 5px;
+	font-size: 14px;
+	padding: 10px;
+	border: none;
+	border-radius: 4px;
+	font-size: 14px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.badge:hover {
+	text-decoration: underline;
+}
+
+.mt-2 {
+    margin-top: .5rem !important;
+    text-align: left;
+}
+
+.overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 999;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: white;
+	width: 400px;
+	height: 40%;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+	z-index: 1000;
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+}
+
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 10px;
+	margin-bottom: 15px;
+}
+
+.close-btn {
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.modal-footer {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 15px;
+}
+
+.save-button {
+	background: #ff4d4d;
+	color: white;
+	border: none;
+	padding: 8px 15px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.del-btn {
+	background: #ccc;
+	color: black;
+	border: none;
+	padding: 8px 15px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.save-button:hover {
+	background: #cc0000;
+}
+
+.del-btn:hover {
+	background: #999;
+}
+
+.review-item .review-date {
+	float: right;
+	font-size: 0.85rem;
+	color: #777;
+}
+
+.review-item .nickname {
+	float: left;
+	font-size: 0.85rem;
+	color: #777;
+}
+
+.review-item h6 {
+	margin-bottom: 10px;
+	font-size: 1rem;
+	line-height: 1.5;
+}
+
+.likeBtn {
+	font-size: 17px;
+}
+
+.buttons {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+	align-items: center;
+}
+
+.review-item .btn btn-primary, .reportBtn {
+	display: inline-flex;
+	float: right;
+}
+
+.reportBtn {
+	font-size: 14px;
+	padding: 5px 10px;
+}
+
+.btn-primary {
+	font-size: 14px;
+	padding: 5px 10px;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+}
+
+.btn-primary:hover {
+	background-color: #0056b3;
+}
+
+.text-danger {
+	color: #dc3545;
+}
+
+.bi-heart-fill.text-danger {
+	color: red;
+}
+
+@media (max-width: 768px) {
+	.container {
+		width: 95%;
+		padding: 10px;
+	}
+	.recipe-grid {
+		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	}
+	.search-control {
+		font-size: 13px;
+		height: 36px;
+	}
+	.btn, .btn-primary {
+		font-size: 13px;
+		padding: 8px 12px;
+	}
+	.img {
+		height: 180px;
+	}
+}
+
+@media (max-width: 480px) {
+	.container {
+		width: 95%;
+		padding: 8px;
+	}
+	h2, h3 {
+		font-size: 16px;
+	}
+	.recipe-grid {
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	}
+	.search-control {
+		font-size: 12px;
+		height: 34px;
+	}
+	.btn, .btn-primary {
+		font-size: 12px;
+		padding: 6px 10px;
+	}
+	.img {
+		height: 160px;
+	}
+	.recipe-card {
+		padding: 8px;
+	}
+	.badge a {
+		font-size: 12px;
+		padding: 6px 8px;
+	}
+}

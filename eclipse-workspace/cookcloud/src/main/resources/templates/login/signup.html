@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<link rel="stylesheet" th:href="@{/css/member.css}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/saveMember.js" defer></script>
+</head>
+<body>
+	<div class="container">
+        <div class="logo">
+            <a th:href="@{/}"><img src="/img/logo.png"></a>
+		<h2>회원가입</h2>
+        </div>
+		<form th:object="${member}">
+			<input type="text" id="id" class="input-field" name="memId" placeholder="아이디" required><br>
+			<span id="idError" class="error-message"></span><br>
+			<input type="password" id="password" class="input-field" placeholder="비밀번호" name="memPassword"  required><br>
+			<span id="passwordError" class="error-message"></span><br>
+			<input type="password" id="checkPassword"  class="input-field" placeholder="비밀번호 확인"><br>
+			<span id="checkPasswordError" class="error-message"></span><br>
+			<input type="text" id="name" class="input-field" name="memName" placeholder="이름" required><br>
+			<span id="nameError" class="error-message"></span><br>
+			<input type="text" id="nickname" class="input-field" name="memNickname" placeholder="닉네임" required><br>
+			<span id="nicknameError" class="error-message"></span><br>
+			 <input type="email" id="email" class="input-field" name="memEmail" placeholder="이메일" required><br>
+			 <span id="emailError" class="error-message"></span><br>
+			 <input type="text" id="phone" class="input-field" name="memPhone" placeholder="전화번호" required><br>
+			 <span id="phoneError" class="error-message"></span><br>
+			<input type="button" id="saveMember" class="submit-btn" th:value="가입하기">
+		</form>
+		<br>
+
+		<p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
+		<div class="links"><a th:href="@{/login}">로그인 하기</a></div>
+	</div>
+</body>
+</html>

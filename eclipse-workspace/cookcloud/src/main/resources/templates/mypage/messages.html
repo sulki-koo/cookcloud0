@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<section th:fragment="messages" id="messages" class="content-tab">
+	<h3>메시지</h3>
+		<ul>
+			<li class="message-list" th:each="message : ${messages}">
+				<h4 class="messageTitle" th:text="${message.messageTitle}" th:data-id="${message.messageId}" th:data-read="${message.messageIsRead}"></h4>
+	            <p class="messageContent" th:text="${message.messageContent}" style="display: none;"></p>
+	            <div class="d-flex justify-content-center align-items-center">
+	            <span th:text="${#temporals.format(message.messageSendAt, 'yyyy-MM-dd HH:mm')}">보낸 시간</span>&nbsp;&nbsp;&nbsp;
+	            <span class="messageStatus" th:text="${message.messageIsRead == 'Y' ? '읽음' : '안 읽음'}"></span>
+				<input type="button" value="삭제" class="deleteBtn" th:data-id="${message.messageId}" th:disabled="${message.messageIsRead != 'Y'}">
+				</div>
+			</li>
+		</ul>
+</section>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{admin/header :: header}">
+    <title>관리자 페이지</title>
+</head>
+<body>
+    <div class="container" th:if="${#authorization.expr('isAuthenticated()') and loggedMember.roleCode == 21L }">
+	    <div class="sidebar">
+	        <div th:replace="admin/sidebar :: sidebar"></div>
+		</div>
+	</div>
+</body>
+</html>

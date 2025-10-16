@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="recipe/header :: header"></head>
+<script src="/js/recipeList.js"></script>
+<body>
+<nav th:replace="include/nav :: nav"></nav>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap">
+        <div class="mx-auto text-center">
+            <form id="searchForm" action="/recipes" method="get" class="d-flex gap-2 flex-wrap justify-content-left">
+                <select id="recipeType" name="recipeType" class="form-select w-auto">
+                    <option value="">All Types</option>
+                    <th:block th:each="entry : ${recipeTypes}" name="recipeCode">
+                        <option th:value="${entry.value.parentCode + '' + entry.value.childCode}" th:text="${entry.value.codeName}"></option>
+                    </th:block>
+                </select>
+                <input type="text" id="searchInput" name="searchRecipe" class="form-control w-50" placeholder="검색 (제목, 해시태그)">
+                <button type="submit" id="searchBtn" class="btn btn-secondary">Search</button>
+                <button type="button" th:onclick="location.href='/recipes/create'" id="addRecipeBtn" class="btn btn-primary">레시피 등록</button>
+            </form>
+            
+            <div class="d-flex gap-2 flex-wrap justify-content-left">
+                <strong>🔥 인기 해시태그</strong>
+                <th:block th:each="tag, iterStat : ${topHashtags}">
+				    <span th:if="${iterStat.index} < 8" class="badge">
+				        <a th:href="@{/recipes(searchRecipe=${tag.hashName})}" th:text="'#' + ${tag.hashName}"></a>
+				    </span>
+				</th:block>
+            </div>
+        </div>
+    </div>
+    <div id="recipeList">
+        <div class="recipe-card" th:each="recipe : ${recipes}">
+            <th:block th:switch="${recipe.mediaType}">
+                <video class="img" controls th:case="'video'">
+                    <source th:src="@{${recipe.imageUrl}}"
+                            th:attr="type=${recipe.imageUrl.endsWith('.mp4') ? 'video/mp4' :
+                                      recipe.imageUrl.endsWith('.avi') ? 'video/x-msvideo' :
+                                      recipe.imageUrl.endsWith('.mov') ? 'video/quicktime' : ''}">
+                </video>
+                <img class="img" th:case="image" th:src="@{${recipe.imageUrl}}" alt="Recipe Image">
+                <img class="img" th:case="none" src="/img/recipe/default-image.jpg" alt="Default Image">
+            </th:block>
+            <h3><a th:href="@{'/recipes/recipe/' + ${recipe.recipeId}}" th:text="${recipe.recipeTitle}">레시피 제목</a></h3>
+            <a th:href="@{'/@' + ${recipe.memNickname}}" th:text="${recipe.memNickname}">닉네임</a>
+            <p th:text="${#temporals.format(recipe.recipeInsertAt, 'yyyy-MM-dd HH:mm')}">작성일</p>
+            <p>조회수: <span th:text="${recipe.recipeViewCount}">조회수</span></p>
+        </div>
+        <div id="loading" class="text-center" style="display: none;">
+            <span>로딩 중...</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

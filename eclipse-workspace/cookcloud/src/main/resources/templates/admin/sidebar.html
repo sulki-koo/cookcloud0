@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+ <div th:fragment="sidebar">
+<h3>관리자 페이지</h3>
+      <ul th:if="${#authorization.expr('isAuthenticated()') and loggedMember.roleCode == 21L }">
+        <li><a href="/admin/memManagement" class="btn">회원 관리</a></li>
+        <li><a href="/admin/reportManagement" class="btn">신고 관리</a></li>
+        <li><a href="/admin/noticeManagement" class="btn">공지 관리</a></li>
+        <li><a href="/admin/messageManagement" class="btn">수동 메시지 발송</a></li>
+      </ul>
+      <div class="auth-user">
+			<a href="/logout" id="logoutLink"
+				th:if="${#authorization.expr('isAuthenticated()')}">로그아웃</a>
+			<a href="/login" th:if="${#authorization.expr('!isAuthenticated()')}">로그인</a>
+		</div>
+  </div>
+</html>

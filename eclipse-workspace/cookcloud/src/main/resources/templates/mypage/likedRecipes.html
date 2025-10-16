@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<section th:fragment="likedRecipes" id="liked-recipes" class="content-tab">
+    <h3>좋아요 레시피</h3>
+    <div class="recipe-grid">
+        <div class="recipe-card" th:each="recipe : ${likedRecipes}">
+            <a th:href="@{'/recipes/recipe/' + ${recipe.recipeId}}"> 
+                <img th:src="@{${recipe.imageUrl}}" alt="레시피 이미지">
+                <h4>
+                    <a th:href="@{'/recipes/recipe/' + ${recipe.recipeId}}" th:text="${recipe.recipeTitle}">레시피 제목</a>
+                </h4>
+            </a>
+        </div>
+    </div>
+</section>
+</html>
